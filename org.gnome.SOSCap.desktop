@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=protocap
+Exec=protocap
+Icon=org.gnome.Protocap
+Terminal=false
+Type=Application
+Categories=GTK;
+StartupNotify=true
