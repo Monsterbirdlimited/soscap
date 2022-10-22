@@ -1,2 +1,2 @@
-# mbncap
+# SOSCap
 capture program for mbn
