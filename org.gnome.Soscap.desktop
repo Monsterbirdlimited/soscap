@@ -1,7 +1,7 @@
 [Desktop Entry]
-Name=protocap
-Exec=protocap
-Icon=org.gnome.Protocap
+Name=soscap
+Exec=soscap
+Icon=org.gnome.Soscap
 Terminal=false
 Type=Application
 Categories=GTK;
