@@ -2,7 +2,7 @@
 Name=soscap
 Version=1.0
 Exec=soscap
-Icon=soscap_icon.png
+Icon=https://github.com/Monsterbirdlimited/soscap/blob/main/icon.png
 Terminal=false
 Type=Application
 Categories=Utility
