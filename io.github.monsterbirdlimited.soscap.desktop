@@ -1,8 +1,9 @@
 [Desktop Entry]
 Name=soscap
+Version=1.0
 Exec=soscap
-Icon=org.gnome.Soscap
+Icon=soscap_icon.png
 Terminal=false
 Type=Application
-Categories=GTK;
+Categories=Utility
 StartupNotify=true
