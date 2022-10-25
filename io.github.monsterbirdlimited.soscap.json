@@ -26,7 +26,7 @@
         {
           "type": "git",
           "url": "https://github.com/Monsterbirdlimited/soscap",
-          "commit": "6f97269421e43d8b1c0290abfe04c8de9b7df6b0"
+          "commit": "6f97269421e43d8b1c0290abfe04c8de9b7df6b0",
           "tag": "v0.1.0-alpha",
           "x-checker-data": {
             "type": "git",
