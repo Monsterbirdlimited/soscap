@@ -29,7 +29,7 @@
             "sources" : [
                 {
                     "type" : "git",
-                    "url" : "file:///home/deck/Projects/soscap"
+                    "url" : "https://github.com/Monsterbirdlimited/soscap"
                 }
             ]
         }
