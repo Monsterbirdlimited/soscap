@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+	<id>io.github.monsterbirdlimited.soscap.desktop</id>
+	<metadata_license>CC0-1.0</metadata_license>
+	<project_license>GPL-3.0-or-later</project_license>
+	<description>
+	  <p>A simple screen capture utility for Linux
+		-Cptnrogers</p>
+	</description>
+  <name>SOSCap</name>
+  <developer_name>Cptnrogers</developer_name>
+  <launchable type="desktop-id">io.github.monsterbirdlimited.soscap.desktop</launchable>
+  <categories>
+    <category>Utilities</category>
+  </categories>
+</component>
+

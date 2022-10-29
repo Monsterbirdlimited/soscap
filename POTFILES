@@ -1,0 +1,5 @@
+data/io.github.monsterbirdlimited.soscap.desktop.in
+data/io.github.monsterbirdlimited.soscap.appdata.xml.in
+data/io.github.monsterbirdlimited.soscap.gschema.xml
+src/main.py
+
