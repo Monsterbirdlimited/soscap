@@ -1,9 +1,9 @@
 {
     "app-id" : "io.github.monsterbirdlimited.soscap",
-    "runtime" : "org.gnome.Platform",
-    "runtime-version" : "master",
-    "sdk" : "org.gnome.Sdk",
-    "command" : "soscap.py",
+    "runtime" : "org.freedesktop.Sdk",
+    "runtime-version" : "22.08",
+    "sdk" : "org.freedesktop.Sdk",
+    "command" : "soscap",
     "finish-args" : [
     "--share=network",
     "--share=ipc",
