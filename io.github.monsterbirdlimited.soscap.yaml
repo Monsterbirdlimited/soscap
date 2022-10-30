@@ -1,0 +1,46 @@
+---
+app-id: io.github.monsterbirdlimited.soscap
+runtime: org.freedesktop.Platform
+runtime-version: '22.08'
+sdk: org.freedesktop.Sdk
+command: soscap
+finish-args:
+  - --share=network
+  - --share=ipc
+  - --socket=fallback-x11
+  - --socket=pulseaudio
+  - --socket=wayland
+  - --device=all
+
+cleanup:
+  - '/include'
+  - '/lib/pkgconfig'
+  - '/man'
+  - '/share/doc'
+  - '/share/gtk-doc'
+  - '/share/man'
+  - '/share/pkgconfig'
+  - '*.la'
+  - '*.a'
+
+modules:
+  - name: soscap
+    buildsystem: simple
+    builddir: true
+    sources:
+      - type: git
+        url: https://github.com/Monsterbirdlimited/soscap
+        commit: 6f97269421e43d8b1c0290abfe04c8de9b7df6b0
+        tag: v0.1.0-alpha
+        x-checker-data:
+          type: git
+          tag-pattern: ^v([\\d.]+)$
+          is-main-source: true
+    build-commands:
+      - install -Dm755 soscap.py ${FLATPAK_DEST}/bin/soscap
+      - install -Dm644 io.github.monsterbirdlimited.soscap.desktop ${FLATPAK_DEST}/share/applications/${FLATPAK_ID}.desktop
+      - install -Dm644 icon.png ${FLATPAK_DEST}/share/icons/hicolor/64x64/apps/${FLATPAK_ID}.png
+      #- install -Dm755 soscap.py -t ${FLATPAK_DEST}/bin/soscap
+      #- install -Dm644 io.github.monsterbirdlimited.soscap.appdata.xml -t ${FLATPAK_DEST}/share/metainfo/io.github.monsterbirdlimited.soscap.appdata.xml
+      #- install -Dm644 io.github.monsterbirdlimited.soscap.desktop -t ${FLATPAK_DEST}/share/applications/io.github.monsterbirdlimited.soscap.desktop
+      #- install -Dm644 icon.png ${FLATPAK_DEST}/share/icons/hicolor/64x64/apps/io.github.monsterbirdlimited.soscap.icon.png
