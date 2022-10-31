@@ -1,2 +1,4 @@
-# soscap
-# capture program for mbn
+# SOSCap
+# A simple Wayland compatible Screen and Audio Recording utility.  
+
+# Created by Cptnrogers with help from Thimslugga (BroknBottle).
