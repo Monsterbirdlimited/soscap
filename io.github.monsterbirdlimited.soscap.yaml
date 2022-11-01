@@ -1,8 +1,8 @@
 ---
 app-id: io.github.monsterbirdlimited.soscap
-runtime: org.freedesktop.Platform
-runtime-version: '22.08'
-sdk: org.freedesktop.Sdk
+runtime: org.gnome.Platform
+runtime-version: '43'
+sdk: org.gnome.Sdk
 command: soscap
 finish-args:
   - --share=network
@@ -30,8 +30,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/Monsterbirdlimited/soscap
-        commit: ed835b159bc3b8eeb6ce00ed79675133623b656f
-        tag: v0.2.0-alpha 
+        commit: 71b2bbbe1e79366887a0ea081a79b105eff3a812
+        tag: v0.2.5-alpha 
         x-checker-data:
           type: git
           tag-pattern: ^v([\\d.]+)$
@@ -44,3 +44,5 @@ modules:
       #- install -Dm644 io.github.monsterbirdlimited.soscap.appdata.xml -t ${FLATPAK_DEST}/share/metainfo/io.github.monsterbirdlimited.soscap.appdata.xml
       #- install -Dm644 io.github.monsterbirdlimited.soscap.desktop -t ${FLATPAK_DEST}/share/applications/io.github.monsterbirdlimited.soscap.desktop
       #- install -Dm644 icon.png ${FLATPAK_DEST}/share/icons/hicolor/64x64/apps/io.github.monsterbirdlimited.soscap.icon.png
+      
+      
