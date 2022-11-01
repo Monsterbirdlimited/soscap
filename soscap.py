@@ -33,7 +33,7 @@ class GTK_Main:
         window.show_all()
 
         # Set up the gstreamer pipeline
-        self.player = Gst.parse_launch("pipewiresrc ! queue !  videoscale ! videoconvert ! x264enc ! h264parse ! mux. pulsesrc device=alsa_output.pci-0000_00_1b.0.analog-stereo.monitor ! queue ! audioconvert ! audioresample ! faac bitrate=32000 ! matroskamux name=mux ! filesink location=/home/deck/Videos/SOSCap_.mkv sync=true")
+        self.player = Gst.parse_launch("pipewiresrc ! queue !  videoscale ! videoconvert ! vaapih264enc bitrate=6000 ! h264parse ! mux. pulsesrc device=alsa_output.pci-0000_00_1b.0.analog-stereo.monitor ! queue ! audioconvert ! audioresample ! faac bitrate=32000 ! matroskamux name=mux ! filesink location=/home/deck/Videos/SOSCap_.mkv sync=true")
         bus = self.player.get_bus()
         bus.add_signal_watch()
         bus.enable_sync_message_emission()
