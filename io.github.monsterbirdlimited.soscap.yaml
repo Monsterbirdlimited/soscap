@@ -10,7 +10,12 @@ finish-args:
   - --socket=fallback-x11
   - --socket=pulseaudio
   - --socket=wayland
+  - --env=GST_VAAPI_ALL_DRIVERS=1
   - --device=all
+  
+add-extensions: org.freedesktop.Platform.GStreamer.gstreamer-vaapi
+  directory: /usr/lib/gstreamer-1.0/libgstvaapi.so
+  version: '1.18.5'
 
 cleanup:
   - '/include'
