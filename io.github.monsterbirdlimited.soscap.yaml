@@ -14,8 +14,6 @@ finish-args:
   - --device=all
   
 add-extensions: org.freedesktop.Platform.GStreamer.gstreamer-vaapi
-  directory: /usr/lib/gstreamer-1.0/libgstvaapi.so
-  version: '1.18.5'
 
 cleanup:
   - '/include'
