@@ -14,6 +14,8 @@ finish-args:
   - --device=all
   
 add-extensions: org.freedesktop.Platform.GStreamer.gstreamer-vaapi
+directory: lib/girepository-1.0
+version: 22.08
 
 cleanup:
   - '/include'
