@@ -1,8 +1,15 @@
 ---
 app-id: io.github.monsterbirdlimited.soscap
 runtime: org.gnome.Platform
-runtime-version: '43'
+runtime-version: "43"
 sdk: org.gnome.Sdk
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.openjdk17
+add-extensions:
+  org.freedesktop.Platform.ffmpeg-full:
+    directory: "lib/ffmpeg"
+    version: "22.08"
+    add-ld-path: "."
 command: soscap
 finish-args:
   - --share=network
@@ -12,10 +19,6 @@ finish-args:
   - --socket=wayland
   - --env=GST_VAAPI_ALL_DRIVERS=1
   - --device=all
-  
-add-extensions: org.freedesktop.Platform.GStreamer.gstreamer-vaapi
-directory: lib/girepository-1.0
-version: 22.08
 
 cleanup:
   - '/include'
