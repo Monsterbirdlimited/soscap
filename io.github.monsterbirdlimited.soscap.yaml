@@ -3,11 +3,9 @@ app-id: io.github.monsterbirdlimited.soscap
 runtime: org.gnome.Platform
 runtime-version: "43"
 sdk: org.gnome.Sdk
-sdk-extensions:
-  - org.freedesktop.Sdk.Extension.openjdk17
 add-extensions:
   org.freedesktop.Platform.ffmpeg-full:
-    directory: "lib/ffmpeg"
+    directory: "/lib/ffmpeg"
     version: "22.08"
     add-ld-path: "."
 command: soscap
@@ -19,6 +17,9 @@ finish-args:
   - --socket=wayland
   - --env=GST_VAAPI_ALL_DRIVERS=1
   - --device=all
+  - --filesystem=host
+
+
 
 cleanup:
   - '/include'
@@ -53,4 +54,6 @@ modules:
       #- install -Dm644 io.github.monsterbirdlimited.soscap.desktop -t ${FLATPAK_DEST}/share/applications/io.github.monsterbirdlimited.soscap.desktop
       #- install -Dm644 icon.png ${FLATPAK_DEST}/share/icons/hicolor/64x64/apps/io.github.monsterbirdlimited.soscap.icon.png
       
+      
+
       
