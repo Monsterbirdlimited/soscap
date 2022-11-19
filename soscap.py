@@ -19,8 +19,6 @@ class GTK_Main:
         window.connect("destroy", Gtk.main_quit, "WM destroy")
         vbox = Gtk.VBox()
         window.add(vbox)
-        self.movie_window = Gtk.DrawingArea()
-        vbox.add(self.movie_window)
         hbox = Gtk.HBox()
         vbox.pack_start(hbox, False, False, 0)
         hbox.set_border_width(10)
@@ -35,12 +33,23 @@ class GTK_Main:
         window.show_all()
 
         # Set up the gstreamer pipeline
-        self.player = Gst.parse_launch("pipewiresrc do-timestamp=True ! queue !  videoscale ! videoconvert ! x264enc key-int-max=12 cabac=1 bframes=2 ! h264parse ! mux. pulsesrc device=alsa_output.pci-0000_00_1b.0.analog-stereo.monitor ! queue ! audioconvert ! audioresample ! lamemp3enc bitrate=320 ! matroskamux name=mux ! filesink location=/home/deck/Videos/SOSCap.mkv sync=true")
+        self.player = Gst.parse_launch("ximagesrc do-timestamp=True ! queue ! videoscale ! videoconvert ! x264enc key-int-max=12 cabac=1 bframes=2 ! h264parse ! mux. pulsesrc device=alsa_output.pci-0000_00_1b.0.analog-stereo.monitor ! queue ! audioconvert ! audioresample ! lamemp3enc bitrate=320 ! matroskamux name=mux ! filesink location=/home/deck/Videos/SOSCap.mkv sync=true")
         bus = self.player.get_bus()
         bus.add_signal_watch()
         bus.enable_sync_message_emission()
         bus.connect("message", self.on_message)
         bus.connect("sync-message::element", self.on_sync_message)
+
+    def rename(self, src):
+        f_path = "/home/deck/Videos/SOSCap.mkv"
+        t = os.path.getctime(f_path)
+        t_str = time.ctime(t)
+        t_obj = time.strptime(t_str)
+        form_t = time.strftime("SOSCap_%Y-%m-%d %H:%M:%S", t_obj)
+        form_t = form_t.replace(":", "꞉")
+        os.rename(
+            f_path, os.path.split(f_path)[0] + '/' + form_t + os.path.splitext(f_path)[1])
+
 
     def start_stop(self, w):
         if self.button.get_label() == "Start":
@@ -51,10 +60,11 @@ class GTK_Main:
             self.button.set_label("Start")
             #import rename
             #execfile('rename.py')
-            self.rename()
+            self.rename(self)
 
     def exit(self, widget, data=None):
         Gtk.main_quit()
+    
 
     def on_message(self, bus, message):
         t = message.type
@@ -63,7 +73,7 @@ class GTK_Main:
             self.button.set_label("Start")
             #import rename
             #execfile('rename.py')
-            self.rename()
+            #rename()
         elif t == Gst.MessageType.ERROR:
             err, debug = message.parse_error()
             print("Error: %s" % err, debug)
@@ -76,15 +86,7 @@ class GTK_Main:
             return
         message_name = struct.get_name()
 
-    def rename(self, w):
-        f_path = "/home/deck/Videos/SOSCap.mkv"
-        t = os.path.getctime(f_path)
-        t_str = time.ctime(t)
-        t_obj = time.strptime(t_str)
-        form_t = time.strftime("SOSCap_%Y-%m-%d %H:%M:%S", t_obj)
-        form_t = form_t.replace(":", "꞉")
-        os.rename(
-            f_path, os.path.split(f_path)[0] + '/' + form_t + os.path.splitext(f_path)[1])
+
 
 
 
