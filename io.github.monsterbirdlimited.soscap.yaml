@@ -3,22 +3,19 @@ app-id: io.github.monsterbirdlimited.soscap
 runtime: org.gnome.Platform
 runtime-version: "43"
 sdk: org.gnome.Sdk
-add-extensions:
-  org.freedesktop.Platform.ffmpeg-full:
-    directory: "/lib/ffmpeg"
-    version: "22.08"
-    add-ld-path: "/lib/flatpak/runtime/org.freedesktop.Platform.ffmpeg-full"
 command: soscap
 finish-args:
   - --share=network
   - --share=ipc
+  - --filesystem=xdg-videos
   - --socket=fallback-x11
   - --socket=pulseaudio
   - --socket=wayland
-  - --env=GST_VAAPI_ALL_DRIVERS=1
   - --device=all
   - --filesystem=host
-
+  - --talk-name=org.freedesktop.FileManager1
+  - --env=G_MESSAGES_DEBUG=none
+  - --env=GST_DEBUG=3
 
 
 cleanup:
@@ -33,6 +30,32 @@ cleanup:
   - '*.a'
 
 modules:
+  - name: x264
+    config-opts:
+    - --enable-shared
+    - --enable-pic
+    - --disable-cli
+     buildsystem: simple
+     builddir: true
+     sources:
+       - type: git
+         url: https://code.videolan.org/videolan/x264.git
+         commit: baee400fa9ced6f5481a728138fed6e867b0ff7f
+
+  - name: gst-plugins-ugly
+    config-opts:
+    - --Ddoc=disabled
+    - --Dnls=disabled
+    - --Dtests=disabled
+    - --Dgpl=enabled
+     buildsystem: simple
+     builddir: true
+     sources:
+       - type: archive
+         url: https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.20.3.tar.xz
+         sha256: "8caa20789a09c304b49cf563d33cca9421b1875b84fcc187e4a385fa01d6aefd"
+              
+
   - name: soscap
     buildsystem: simple
     builddir: true
@@ -48,11 +71,11 @@ modules:
     build-commands:
       - install -Dm755 soscap.py ${FLATPAK_DEST}/bin/soscap
       - install -Dm644 io.github.monsterbirdlimited.soscap.desktop ${FLATPAK_DEST}/share/applications/${FLATPAK_ID}.desktop
-      - install -Dm644 icon.png ${FLATPAK_DEST}/share/icons/hicolor/64x64/apps/${FLATPAK_ID}.png
+      - install -Dm644 io.github.monsterbirdlimited.soscap.png ${FLATPAK_DEST}/share/icons/hicolor/64x64/apps/${FLATPAK_ID}.png
       #- install -Dm755 soscap.py -t ${FLATPAK_DEST}/bin/soscap
       #- install -Dm644 io.github.monsterbirdlimited.soscap.appdata.xml -t ${FLATPAK_DEST}/share/metainfo/io.github.monsterbirdlimited.soscap.appdata.xml
       #- install -Dm644 io.github.monsterbirdlimited.soscap.desktop -t ${FLATPAK_DEST}/share/applications/io.github.monsterbirdlimited.soscap.desktop
-      #- install -Dm644 icon.png ${FLATPAK_DEST}/share/icons/hicolor/64x64/apps/io.github.monsterbirdlimited.soscap.icon.png
+      #- install -Dm644 io.github.monsterbirdlimited.soscap.png ${FLATPAK_DEST}/share/icons/hicolor/64x64/apps/io.github.monsterbirdlimited.soscap.png
       
       
 
