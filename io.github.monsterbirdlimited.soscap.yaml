@@ -7,7 +7,7 @@ add-extensions:
   org.freedesktop.Platform.ffmpeg-full:
     directory: "/lib/ffmpeg"
     version: "22.08"
-    add-ld-path: "."
+    add-ld-path: "/lib/flatpak/runtime/org.freedesktop.Platform.ffmpeg-full"
 command: soscap
 finish-args:
   - --share=network
@@ -39,8 +39,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/Monsterbirdlimited/soscap
-        commit: b13a805ca059bcc87c548773b2cd826e8da7913f
-        tag: v0.6.5-alpha 
+        commit: 1489da45f31dca1f3a6c4c5ce5349e16e6753cb9
+        tag: v0.7.0-alpha 
         x-checker-data:
           type: git
           tag-pattern: ^v([\\d.]+)$
