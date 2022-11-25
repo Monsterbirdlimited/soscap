@@ -5,9 +5,9 @@ runtime-version: "43"
 sdk: org.gnome.Sdk
 command: soscap
 finish-args:
-  - --share=network
+  - --filesystem=home
   - --share=ipc
-  - --filesystem=xdg-videos
+  - --device=dri
   - --socket=fallback-x11
   - --socket=pulseaudio
   - --socket=wayland
@@ -39,6 +39,34 @@ modules:
        - type: git
          url: https://code.videolan.org/videolan/x264.git
          commit: baee400fa9ced6f5481a728138fed6e867b0ff7f
+         
+  - name: libx264
+    config-opts:
+      - --enable-shared
+      - --disable-cli
+    sources:
+      - type: git
+        url: https://code.videolan.org/videolan/x264.git
+        branch: stable
+
+  - name: ffmpeg
+    config-opts:
+      - --enable-shared
+      - --disable-static
+      - --disable-doc
+      - --disable-htmlpages
+      - --disable-manpages
+      - --disable-podpages
+      - --disable-txtpages
+      - --enable-libpulse
+      - --enable-gpl
+      - --enable-libx264
+      - --enable-version3
+      - --enable-libvorbis
+    sources:
+      - type: archive
+        url: http://www.ffmpeg.org/releases/ffmpeg-4.3.2.tar.xz
+        md5: 29529337d9b8f794a6142db10b717ec5
 
   - name: gst-plugins-ugly
     buildsystem: meson
