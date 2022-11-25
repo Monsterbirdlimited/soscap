@@ -43,11 +43,6 @@ modules:
   - name: gst-plugins-ugly
     buildsystem: meson
     builddir: true
-    config-opts:
-    - --Ddoc=disabled
-    - --Dnls=disabled
-    - --Dtests=disabled
-    - --Dgpl=enabled
     sources:
       - type: archive
         url: https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.20.3.tar.xz
