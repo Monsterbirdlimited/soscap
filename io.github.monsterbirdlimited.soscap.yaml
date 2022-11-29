@@ -3,17 +3,17 @@ app-id: io.github.monsterbirdlimited.soscap
 runtime: org.gnome.Platform
 runtime-version: "43"
 sdk: org.gnome.Sdk
+sdk-extensions:
+  - org.freedesktop.Platform.ffmpeg-full
 command: soscap
 finish-args:
-  - --share=ipc
-  - --filesystem=xdg-videos
-  - --socket=fallback-x11
-  - --socket=pulseaudio
-  - --socket=wayland
-  - --device=all
-  - --device=dri
   - --filesystem=home
+  - --share=ipc
+  - --socket=pulseaudio
+  - --socket=fallback-x11
+  - --device=dri
   - --talk-name=org.freedesktop.FileManager1
+  - --filesystem=xdg-videos
   - --env=G_MESSAGES_DEBUG=none
   - --env=GST_DEBUG=3
 
@@ -30,6 +30,7 @@ cleanup:
   - '*.a'
 
 modules:
+  
   - name: soscap
     buildsystem: simple
     builddir: true
@@ -43,6 +44,69 @@ modules:
           tag-pattern: ^v([\\d.]+)$
           is-main-source: true
     build-commands:
+      - install -Dm755 soscap.py ${FLATPAK_DEST}/bin/soscap
+      - install -Dm644 io.github.monsterbirdlimited.soscap.desktop ${FLATPAK_DEST}/share/applications/${FLATPAK_ID}.desktop
+      - install -Dm644 io.github.monsterbirdlimited.soscap.png ${FLATPAK_DEST}/share/icons/hicolor/64x64/apps/${FLATPAK_ID}.png
+      #- install -Dm755 soscap.py -t ${FLATPAK_DEST}/bin/soscap
+      #- install -Dm644 io.github.monsterbirdlimited.soscap.appdata.xml -t ${FLATPAK_DEST}/share/metainfo/io.github.monsterbirdlimited.soscap.appdata.xml
+      #- install -Dm644 io.github.monsterbirdlimited.soscap.desktop -t ${FLATPAK_DEST}/share/applications/io.github.monsterbirdlimited.soscap.desktop
+      #- install -Dm644 io.github.monsterbirdlimited.soscap.png ${FLATPAK_DEST}/share/icons/hicolor/64x64/apps/io.github.monsterbirdlimited.soscap.png
+      
+
+  - name: x264
+    config-opts:
+    - --enable-shared
+    - --enable-pic
+    - --disable-cli
+    sources:
+       - type: git
+         url: https://code.videolan.org/videolan/x264.git
+         commit: baee400fa9ced6f5481a728138fed6e867b0ff7f
+  
+  - name: xwininfo
+    sources: 
+      - type: archive
+        url: https://xorg.freedesktop.org/archive/individual/app/xwininfo-1.1.5.tar.bz2
+        md5: 26d46f7ef0588d3392da3ad5802be420
+
+  - name: libx264
+    config-opts:
+      - --enable-shared
+      - --disable-cli
+    sources:
+      - type: git
+        url: https://code.videolan.org/videolan/x264.git
+        branch: stable
+
+  - name: ffmpeg
+    config-opts:
+      - --enable-shared
+      - --disable-static
+      - --disable-doc
+      - --disable-htmlpages
+      - --disable-manpages
+      - --disable-podpages
+      - --disable-txtpages
+      - --enable-libpulse
+      - --enable-gpl
+      - --enable-libx264
+      - --enable-version3
+      - --enable-libvorbis
+    sources:
+      - type: archive
+        url: http://www.ffmpeg.org/releases/ffmpeg-4.3.2.tar.xz
+        md5: 29529337d9b8f794a6142db10b717ec5
+  
+
+  - name: gst-plugins-ugly
+    buildsystem: meson
+    builddir: true
+    sources:
+      - type: archive
+        url: https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.20.3.tar.xz
+        sha256: "8caa20789a09c304b49cf563d33cca9421b1875b84fcc187e4a385fa01d6aefd"
+      
+
       - install -Dm755 soscap.py ${FLATPAK_DEST}/bin/soscap
       - install -Dm644 io.github.monsterbirdlimited.soscap.desktop ${FLATPAK_DEST}/share/applications/${FLATPAK_ID}.desktop
       - install -Dm644 io.github.monsterbirdlimited.soscap.png ${FLATPAK_DEST}/share/icons/hicolor/64x64/apps/${FLATPAK_ID}.png
