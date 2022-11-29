@@ -3,8 +3,6 @@ app-id: io.github.monsterbirdlimited.soscap
 runtime: org.gnome.Platform
 runtime-version: "43"
 sdk: org.gnome.Sdk
-sdk-extensions:
-  - org.freedesktop.Platform.ffmpeg-full
 command: soscap
 finish-args:
   - --filesystem=home
