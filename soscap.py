@@ -33,7 +33,10 @@ class GTK_Main:
         window.show_all()
 
         # Set up the gstreamer pipeline
-        self.player = Gst.parse_launch("pipewiresrc do-timestamp=True ! queue ! videoscale ! videoconvert ! vaapih264enc bitrate=6000 quality-level=1 ! h264parse ! mux. pulsesrc device=alsa_output.sink.monitor ! queue ! audioconvert ! audioresample ! lamemp3enc bitrate=320 ! matroskamux name=mux ! filesink location=/home/deck/Videos/SOSCap.mkv sync=true")
+        
+        # ximagesrc
+        # pipewiresrc
+        self.player = Gst.parse_launch("ximagesrc do-timestamp=True ! queue ! videoscale ! videoconvert ! x264enc key-int-max=12 cabac=1 bframes=2 ! video/x-h264, width=1280, height=720, profile=high ! mux. pulsesrc device=alsa_output.sink.monitor ! queue ! audioconvert ! audioresample ! lamemp3enc bitrate=320 ! mp4mux name=mux reserved-bytes-per-sec=100 reserved-max-duration=20184000000000 reserved-moov-update-period=100000000 ! filesink location=SOSCap.mp4 sync=true")
         bus = self.player.get_bus()
         bus.add_signal_watch()
         bus.enable_sync_message_emission()
@@ -41,7 +44,7 @@ class GTK_Main:
         bus.connect("sync-message::element", self.on_sync_message)
 
     def rename(self, src):
-        f_path = "/home/deck/Videos/SOSCap.mkv"
+        f_path = "/home/deck/Videos/SOSCap.mp4"
         t = os.path.getctime(f_path)
         t_str = time.ctime(t)
         t_obj = time.strptime(t_str)
@@ -58,8 +61,6 @@ class GTK_Main:
         else:
             self.player.set_state(Gst.State.NULL)
             self.button.set_label("Start")
-            #import rename
-            #execfile('rename.py')
             self.rename(self)
 
     def exit(self, widget, data=None):
@@ -71,9 +72,6 @@ class GTK_Main:
         if t == Gst.MessageType.EOS:
             self.player.set_state(Gst.State.NULL)
             self.button.set_label("Start")
-            #import rename
-            #execfile('rename.py')
-            #rename()
         elif t == Gst.MessageType.ERROR:
             err, debug = message.parse_error()
             print("Error: %s" % err, debug)
@@ -90,7 +88,7 @@ class GTK_Main:
 
 
 
-        
 Gst.init(None)
 GTK_Main()
 Gtk.main()
+
