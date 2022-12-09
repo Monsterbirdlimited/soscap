@@ -36,7 +36,7 @@ class GTK_Main:
         
         # ximagesrc
         # pipewiresrc
-        self.player = Gst.parse_launch("ximagesrc do-timestamp=True ! queue ! videoscale ! videoconvert ! x264enc key-int-max=12 cabac=1 bframes=2 ! video/x-h264, width=1280, height=720, profile=high ! mux. pulsesrc device=alsa_output.sink.monitor ! queue ! audioconvert ! audioresample ! lamemp3enc bitrate=320 ! mp4mux name=mux reserved-bytes-per-sec=100 reserved-max-duration=20184000000000 reserved-moov-update-period=100000000 ! filesink location=SOSCap.mp4 sync=true")
+        self.player = Gst.parse_launch("pipewiresrc do-timestamp=True ! queue ! videoscale ! videoconvert ! x264enc key-int-max=12 cabac=1 bframes=2 ! video/x-h264, width=1280, height=720, profile=high ! mux. pulsesrc device=alsa_output.sink.monitor ! queue ! audioconvert ! audioresample ! lamemp3enc bitrate=320 ! mp4mux name=mux reserved-bytes-per-sec=100 reserved-max-duration=20184000000000 reserved-moov-update-period=100000000 ! filesink location=/home/deck/Videos/SOSCap.mp4 sync=true")
         bus = self.player.get_bus()
         bus.add_signal_watch()
         bus.enable_sync_message_emission()
