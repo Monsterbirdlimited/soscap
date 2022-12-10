@@ -68,26 +68,6 @@ modules:
         branch: stable
 
 
-  - name: ffmpeg
-    config-opts:
-      - --enable-shared
-      - --disable-static
-      - --disable-doc
-      - --disable-htmlpages
-      - --disable-manpages
-      - --disable-podpages
-      - --disable-txtpages
-      - --enable-libpulse
-      - --enable-gpl
-      - --enable-libx264
-      - --enable-version3
-      - --enable-libvorbis
-    sources:
-      - type: archive
-        url: http://www.ffmpeg.org/releases/ffmpeg-4.3.2.tar.xz
-        md5: 29529337d9b8f794a6142db10b717ec5
-  
-
   - name: gstreamer-plugins-ugly
     buildsystem: meson
     config-opts:
