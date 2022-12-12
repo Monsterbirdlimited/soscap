@@ -5,6 +5,7 @@ runtime-version: "43"
 sdk: org.gnome.Sdk
 command: soscap
 finish-args:
+  - --filesystem=home
   - --share=ipc
   - --socket=pulseaudio
   - --socket=fallback-x11
