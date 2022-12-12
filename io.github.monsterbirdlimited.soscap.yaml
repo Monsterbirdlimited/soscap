@@ -38,16 +38,7 @@ modules:
         url: https://code.videolan.org/videolan/x264.git
         sha256: baee400fa9ced6f5481a728138fed6e867b0ff7f
 
-  - name: libx264
-    config-opts:
-      - --enable-shared
-      - --disable-cli
-    sources:
-      - type: git
-        url: https://code.videolan.org/videolan/x264.git
-        branch: baee400fa9ced6f5481a728138fed6e867b0ff7f
-
-
+  
   - name: gstreamer-plugins-ugly
     buildsystem: meson
     config-opts:
