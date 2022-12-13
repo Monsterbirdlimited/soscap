@@ -57,8 +57,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/Monsterbirdlimited/soscap
-        commit: c58ffa8d785d090a7191a0467621cc56ec9b7222
-        tag: v0.9.1-alpha 
+        commit: 4e7315584d66f73af47141a706dade54f07dd063
+        tag: v1.0.0-beta 
         x-checker-data:
           type: git
           tag-pattern: ^v([\\d.]+)$
